@@ -1,8 +1,10 @@
-== Carrierwave Nested 
+Carrierwave Nested 
+
+==================
 
 This simple rails app demonstrates how to use nested forms (using ryan bates' nested_form_for) with carrierwave.
 
 For more in-depth information on each of these gems:
-* https://github.com/jnicklas/carrierwave
-* https://github.com/ryanb/nested_form
+[Carrierwave github] (https://github.com/jnicklas/carrierwave)
+[Nested Forms] (https://github.com/ryanb/nested_form)
   
