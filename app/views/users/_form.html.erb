@@ -1,4 +1,4 @@
-<%= form_for @user, :html => {:multipart => true} do |f| %>
+<%= nested_form_for @user, :html => {:multipart => true} do |f| %>
   <% if @user.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
@@ -20,23 +20,21 @@
     <%= f.text_field :bio %>
   </div>
 	
-	<div class="field">
 	<%= f.fields_for :assets do |asset| %>	
-
-		<% if asset.object.new_record? %>
-	<%= asset.file_field(:image) %>
-		<% else %>
-		<div class="image_field">
-	<%= image_tag(asset.object.image.url(:thumb)) %>
-	<%= asset.hidden_field :_destroy %>
-	<%= link_to_function "remove", "remove_fields(this)" %>
-	</div>
 	
+		<% if asset.object.new_record? %>
+			<%= asset.file_field(:image) %>
+	
+		<% else %> 
+			<%= image_tag(asset.object.image.url(:thumb)) %>
+			<%= asset.hidden_field :_destroy %>
+			<%= asset.link_to_remove "remove" %>
 		<% end %>
-
+	
 	<% end %>
-	</div>
-
+	
+	<p><%= f.link_to_add "Add image", :assets %></p>
+	
   <div class="actions">
     <%= f.submit %>
   </div>
