@@ -1,0 +1,43 @@
+<%= form_for @user, :html => {:multipart => true} do |f| %>
+  <% if @user.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
+
+      <ul>
+      <% @user.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :bio %><br />
+    <%= f.text_field :bio %>
+  </div>
+	
+	<div class="field">
+	<%= f.fields_for :assets do |asset| %>	
+
+		<% if asset.object.new_record? %>
+	<%= asset.file_field(:image) %>
+		<% else %>
+		<div class="image_field">
+	<%= image_tag(asset.object.image.url(:thumb)) %>
+	<%= asset.hidden_field :_destroy %>
+	<%= link_to_function "remove", "remove_fields(this)" %>
+	</div>
+	
+		<% end %>
+
+	<% end %>
+	</div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
